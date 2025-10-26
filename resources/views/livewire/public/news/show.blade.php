@@ -92,8 +92,8 @@ class extends Component
             <!-- Content -->
             @if($news->content)
                 <div class="prose prose-zinc dark:prose-invert max-w-none mb-8">
-                    <flux:text class="text-zinc-700 dark:text-zinc-300 whitespace-pre-wrap leading-relaxed">
-                        {!! nl2br(e($news->content)) !!}
+                    <flux:text class="text-zinc-700 dark:text-zinc-300 leading-relaxed">
+                        {!! $news->content !!}
                     </flux:text>
                 </div>
             @endif

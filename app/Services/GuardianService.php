@@ -94,8 +94,8 @@ class GuardianService
                     $description = mb_substr(strip_tags($fields['body']), 0, 200);
                 }
 
-                // Extract content
-                $content = isset($fields['body']) ? strip_tags($fields['body']) : '';
+                // Extract content with HTML tags preserved
+                $content = $fields['body'] ?? '';
 
                 // Store news article
                 News::create([

@@ -108,9 +108,16 @@ class NYTimesService
                 }
 
                 // Extract content from lead_paragraph or snippet
+                // Note: NY Times API provides plain text in standard response
+                // For HTML content with images, you would need to fetch from article URL
                 $content = $article['lead_paragraph'] ?? '';
                 if (empty($content) && isset($article['snippet'])) {
                     $content = $article['snippet'];
+                }
+
+                // Optionally wrap content in HTML paragraph tags for consistency
+                if (! empty($content) && ! str_starts_with(trim($content), '<')) {
+                    $content = '<p>'.nl2br(htmlspecialchars($content, ENT_QUOTES, 'UTF-8')).'</p>';
                 }
 
                 // Store news article

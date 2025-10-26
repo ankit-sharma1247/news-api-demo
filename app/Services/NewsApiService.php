@@ -78,7 +78,9 @@ class NewsApiService
                     continue;
                 }
 
-                // Store news article
+                // Store news article with HTML content if available
+                // Note: NewsAPI.org free tier provides limited plain text content
+                // For HTML content, consider upgrading or fetching from article URL
                 News::create([
                     'source_id' => $newsSource->id,
                     'title' => $article['title'] ?? '',

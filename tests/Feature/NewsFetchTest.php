@@ -162,6 +162,9 @@ test('user can fetch news from the guardian', function () {
     expect(\App\Models\News::first()->title)->toBe('Guardian Article 1');
     expect(\App\Models\News::first()->source->name)->toBe('The Guardian');
     expect(\App\Models\NewsSource::where('name', 'The Guardian')->exists())->toBeTrue();
+
+    // Verify that HTML content is preserved
+    expect(\App\Models\News::first()->content)->toBe('<p>This is the full content of article 1</p>');
 });
 
 test('user can fetch news from multiple sources', function () {
@@ -325,4 +328,9 @@ test('user can fetch news from ny times', function () {
     expect(\App\Models\News::first()->title)->toBe('NY Times Article 1');
     expect(\App\Models\News::first()->source->name)->toBe('The New York Times');
     expect(\App\Models\NewsSource::where('name', 'The New York Times')->exists())->toBeTrue();
+
+    // Verify that content is wrapped in HTML tags
+    $firstArticle = \App\Models\News::first();
+    expect($firstArticle->content)->toContain('<p>');
+    expect($firstArticle->content)->toContain('This is the lead paragraph of article 1');
 });
